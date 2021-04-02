@@ -1,0 +1,22 @@
+.card-img-top {
+  height: 210px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-text > p > span {
+  font-weight: bold;
+}
+
+.card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Resto';
+  constructor(private router: Router) {
+    if (this.router.url === '/') {
+      console.log('navigated to restaurants from root');
+      this.router.navigateByUrl('/restaurants');
+    }
+  }
 }

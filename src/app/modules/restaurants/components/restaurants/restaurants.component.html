@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-md-3">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search by Brand" [(ngModel)]="filter.searchText"
+                    [ngModelOptions]="{standalone: true}" (change)="getProducts()">
+            </div>
+            <div class="form-check pb-3">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="filter.sortByStars"
+                    [ngModelOptions]="{standalone: true}" id="sortByStars" (change)="getProducts()">
+                <label class="form-check-label" for="sortByStars">Sort by Stars</label>
+            </div>
+            <ng-container *ngIf="filter.sortByStars">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="asc"
+                        [(ngModel)]="filter.sortOrder" [ngModelOptions]="{standalone: true}" (change)="getProducts()">
+                    <label class="form-check-label" for="exampleRadios1">
+                        ASC
+                    </label>
+                </div>
+                <div class="form-check pb-3">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="desc"
+                        [(ngModel)]="filter.sortOrder" [ngModelOptions]="{standalone: true}" (change)="getProducts()">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Desc
+                    </label>
+                </div>
+            </ng-container>
+        </form>
+    </div>
+    <div class="col-md-9">
+        <ng-template #content>
+            <div class="row">
+                <div class="col-md-4" *ngFor="let restaurant of restaurants; let i=index;">
+                    <div class="card" (click)="navigate(i, restaurant)">
+                        <img class="card-img-top" [src]="restaurant?.Image" alt="Restaurant {{ i }} image">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{restaurant?.Variety}}
+
+                            </h5>
+                            <div class="card-text">
+                                <dl>
+                                    <dt>Brand:</dt>
+                                    <dd>{{restaurant?.Brand}}</dd>
+
+                                    <dt>Style:</dt>
+                                    <dd>{{restaurant?.Style}}</dd>
+
+                                    <dt>Country:</dt>
+                                    <dd>{{restaurant?.Country}}</dd>
+
+                                    <ng-container *ngIf="showTopTen(restaurant)">
+                                        <dt>Top Ten:</dt>
+                                        <dd>{{restaurant['Top Ten']}}</dd>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="showStars(restaurant?.Stars)">
+                                        <dt>Stars:</dt>
+                                        <dd>{{restaurant?.Stars}} Stars</dd>
+                                    </ng-container>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+
+        <app-loader *ngIf="loading; else content"></app-loader>
+
+    </div>
+</div>
